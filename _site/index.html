@@ -1129,15 +1129,179 @@ Such incidents could result in severe injuries or even fatalities for the cyclis
 <h2 id="single-factors">Single Factors</h2>
 <p>TODO: polish the format and the word</p>
 
-<p><img src="images/single_feature_speed/speed-bar-FLB.png" alt="My Image" width="50%" align="right" style="margin-left: 20px;" />
-<!-- 
-![image](images/single_feature_speed/speed-bar-FLB.png)
-![image](images/single_feature_speed/speed-bar-FLV.png)
-![image](images/single_feature_speed/speed-bar-InC.png)
-![image](images/single_feature_speed/speed-bar-LC.png)
-![image](images/single_feature_speed/speed-bar-PCF.png)
-![image](images/single_feature_speed/speed-bar-PSF.png)
- --></p>
+<!-- <img src="images/single_feature_speed/speed-bar-FLB.png" alt="My Image" width="50%" align="right" style="margin-left: 20px;"> -->
+
+<p><img src="images/single_feature/single_feature_distance.png" alt="image" /></p>
+
+<p>Overall, the data trend in the final result indicates that the effective search direction for ICS searching of collision distance is towards increasing distance in all scenarios except for PCF, where the direction decreases distance.<br />
+In scenario FLB \sout{(Figure~\ref{fig:sr_distance-flb})}, FLV \sout{(Figure~\ref{fig:sr_distance-flv})}, LC \sout{(Figure~\ref{fig:sr_distance-lc})} and PSF \sout{(Figure~\ref{fig:sr_distance-psf})}, 
+there is a significant positive correlation between ICS SR and collision distance.
+Similarly, in scenario InC \sout{(Figure~\ref{fig:sr_distance-inc})}, the overall SR trend remains, with a slight fluctuation in the middle distance range.
+In scenario PCF \sout{(Figure~\ref{fig:sr_distance-pcf})}, 
+the overall ICS SR exhibits a declining trend as the distance increases.
+The reason for the negative correlation in scenario PCF is that the NPC pedestrian is walking in the direction perpendicular to the driving direction of the EV.
+As the collision distance increases, the probability of the NPC pedestrian moving out of the collision area also increases.</p>
+
+<p>The overall upward trend aligns with our search direction, and the significant difference in SR observed during the transition from low speed to medium/high speed demonstrates the effectiveness of our search step size.
+Moreover, the data trend contradicts the intuition regarding the relationship between collision distances and real collisions. 
+Intuitively, one would expect a higher occurrence of collisions when two vehicles are close to each other and one of them changes the driving behavior, suggesting that more ICSs should occur within a close distance.
+However, the results reveal that more ICSs are found when the distance between two vehicles is far, with one of them altering their driving behavior.</p>
+
+<p><img src="images/single_feature/single_feature_speed.png" alt="image" /></p>
+
+<p>The experimental results indicate that, although the collision speed parameter does not significantly impact the overall outcomes compared to the other two parameters, a positive correlation still exists between the ICS success rates and collision speed in most scenarios.
+From \sout{Figure~\ref{fig:IC_SR-speed}} Table~\ref{tab:sr-control_parameters}, it can be observed that in most scenarios, there exists a positive trend between collision speed and the final ICS SR.
+Except for FLV, more ICS were discovered while collision speed was at the middle range.</p>
+
+<p>The data illustrates that more ICSs are found when the collision speed is high, which aligns with our search direction and illustrates that our search steps effectively detect ICSs.
+Our empirical study reveals that, in reality, a higher number of collisions occur at low collision speeds, where one would expect a more significant presence of ICSs. 
+However, contrary to this expectation, our experimental results 
+are in the opposite direction in most scenarios about the collision factor speed, which demonstrates that more ICSs are found when the collision speed is middle and high. 
+The distinction may be because, at high collision speeds, the collision detector lacks sufficient time to react and detect the collision accurately, leading to a higher proportion of ignored collisions.</p>
+
+<p><img src="images/single_feature/single_feature_angle.png" alt="image" />
+The data trends of ICS SR related to angle in different scenarios align with the trend of high on both sides and low in the middle. 
+The fluctuations in the data result from some specific environmental settings.</p>
+
+<p>Overall, for collision angle values greater than 0, a positive correlation between the collision angle and the final ISC SR is observed in almost all scenarios except for scenarios in FLV, indicating its effectiveness in detecting ICS.
+The data trend of scenarios in FLV with the positive angle range exhibits fluctuations. 
+One reason is that many ICS-prone scenarios mentioned in \S~\ref{sec:eval:rq1_drivefuzz_comparison} happen when the angle is near 0.</p>
+
+<p>For collision angle values smaller than 0, the ICS SR trends of most scenarios also match our conclusion derived from the study, except for PSF and FLV.
+For scenario PSF, it does not have ICS when the collision angle is negative since the pedestrian is standing in the right front of the EV.
+In scenario FLV, the \textcolor{red}{local maximum} \sout{peak} observed in the negative angle range can also be attributed to a higher number of occurrences of type 3 ICS within the specific angle range.
+The decreasing trend observed as the collision angle approaches $-1$ is due to the scenarios being at the border between collision and non-collision, leading to a decrease in both the number of collisions and the corresponding number of ICSs.</p>
+
+<p>The search direction for collision angle is from -1 or 1 to 0 ($-90^\circ$ or $90^\circ$ to $0^\circ$ in Figure~\ref{figure:control_parameter}).<br />
+The steep slope of the data trend demonstrates the effectiveness of the search direction and search steps obtained from our study.
+However, the collision frequency trend in reality is the opposite; there are more collisions when the collision angle is close to 0, given that the “Vehicle State While Colliding” has the highest proportion of vehicles moving straight ahead.
+The reason for such counter-intuition distinction is that collision angles near 0 often result in a stronger collision force, making them less likely to be missed by the collision detector. 
+Conversely, collision angles approaching 1 and -1 ($-90^\circ$ and $90^\circ$) encompass a broader range of collision and non-collision scenarios, leading to more identified ICSs.</p>
+
+<p><img src="images/multi_features/multi_feature_distance-speed.png" alt="image" />
+Relationship between ICS SR and Collision Distance at Different Collision Speed Scope.(the dark image)</p>
+
+<p><img src="images/multi_features/multi_feature_speed-distance.png" alt="image" />
+ Relationship between ICS SR and Collision Speed at Different Collision Distance Scope. (the lighter data)</p>
+
+<p><img src="images/multi_features/multi_feature_distance-angle.png" alt="image" /></p>
+
+<p>elationship between ICS SR and Collision Angle at Different Collision Speed Scope.
+<img src="images/multi_features/multi_feature_speed-angle.png" alt="image" />
+ Relationship between ICS SR and Collision Angle at Different Distance.</p>
+
+<p>\textbf{Q1. Does the search direction for collision speed change at different collision distances?}
+<!-- % no, collision speed still doesn't have a large impact compared with collision distance -->
+From Figure~\ref{fig:IC_SR-distance-speed}, when examining three specific collision distance groups, the trend for three different collision speed groups remains relatively consistent compared to not considering the collision distance.</p>
+
+<p>\textbf{Q2. Does the search direction for collision distance change at different collision speed scopes?}
+Figure~\ref{fig:IC_SR-speed-distance} shows the trends in the SR across different collision distances for three collision speed scopes.
+The observed patterns strongly support the conclusion made in \S~\ref{sec:eval:rq3_search_direction} regarding the impact of collision distance as a single feature.
+In most scenarios, a high collision speed consistently results in more ICSs when combined with a far collision distance.
+Except for PCF, a combination of close collision distance and high collision speed leads to more identified ICSs.</p>
+
+<p>\textbf{Q3. Does the search direction for collision angle change at different collision speed scopes?}
+The relationship between ICS occurrences and the collision angle, as depicted in Figure~\ref{fig:IC_SR-speed-angle}, remains largely unchanged across different collision speed conditions compared to the trend without considering the effect of collision speed shown in Figure~\ref{fig:IC_SR-angle}.
+The effective search directions for the collision angle remain consistent across different speed scopes, similar to when considering the collision angle independently. 
+In scenario InC, a distinct data trend difference at low collision speed is observed at positive collision angles.
+However, since the pattern is not observed in other scenarios, it is likely attributed to data noise.</p>
+
+<p>\textbf{Q4. Does the search direction for collision angle change at different collision distance scopes?}</p>
+
+<p>When considering the variations of collision angle across different collision distances, the observed data trend differs slightly from considering collision angle alone in Figure~\ref{fig:IC_SR-angle}.
+In scenarios LC, PSF, and InC, the data aligns with the trend of increasing collision angle, bringing more ICSs.
+Similarly, although there are fewer fluctuations in the middle collision distance scope in scenario FLV, the overall trend still holds. 
+Moreover, the SR exhibits a higher slope at greater collision distances, indicating that simultaneously increasing both collision distance and collision angle can lead to more ICSs.</p>
+
+<p>In this scenario FLB(see Figure~\ref{fig:sr-dist-angle-flb}), the relationship between collision angle and final SR is unstable and exhibits significant fluctuations under far collision distances.</p>
+
+<p>For collision in middle and far distances, the trend similar to the total trend in general. 
+But the middle collision distance brings more ICS.
+When considering the collision distance and collision angle together, the middle collision distance and the collision angle close to -1 and 1 create more ICSs.</p>
+
+<p>In scenario PCF, exceptions also occur at low collision distances. 
+The exception results in different search directions for PCF at different collision distances compared to the one shown in Figure~\ref{fig:sr_angle-pcf}.
+In the low collision distance scope, there are hardly any ICSs for the positive collision angle.
+Hence, the search direction should be towards increasing negative collision angles.
+Conversely, the situation is reversed in the middle and far collision distance scopes.
+There are few collision incidents when the collision angle is negative, the search direction should be towards increasing to the positive collision angles.
+The significant occurrence of ICSs in the negative collision angle zone at low collision distances can be attributed to the different relative positions between the EV and the NPC if changed driving behavior at different collision distances.</p>
+
+<p>When driving behavior changes at low collision distances, the pedestrian just steps onto the lane, which corresponds to the negative collision angle region.
+In order to collide with the pedestrians, the vehicle needs to veer towards the negative angle region.
+On the other hand, at middle to high collision distances, the pedestrian has already reached the region marked by the positive collision angle by the time the EV approaches.
+Hence, collision events are more likely to occur in this region.
+Generally, collision scenarios with a moderate collision distance and collision angle close to 1, as well as collision scenarios with a low collision distance and negative collision angle, tend to result in a higher number of identified ICSs.</p>
+
+<h2 id="oracle-threshold">Oracle Threshold</h2>
+<p><img src="images/oracle_threshold.png" alt="image" /></p>
+
+<p>As we use the object detection bounding box as our oracle for ICS discovery, we aim to investigate whether this oracle is sufficiently reliable and accurate in identifying ICSs.
+Therefore, we conducted an ablation study to examine the relationship between threshold and performance and investigate the impact of the IoU threshold on the final ICS results.
+Three representative scenarios, FLB, LC, and PSF, are tested, each involving different struck objects.
+We explore whether different NPC types affect the TP proportion when the IoU threshold changes.</p>
+
+<p>For scenario FLB, 
+We set the collision distance to 3 and the collision speed to 2. The collision angle on the x-axis was fixed at 0.02, while the collision angle on the y-axis varied from 0 to 1 in increments of 0.02. 
+Similarly, for scenario LC, we set the collision distance to 5 and the collision speed to 30. The collision angle on the y-axis was fixed at 0.02, and the collision angle on the y-axis ranged from 0 to 1 with a step of 0.02. 
+For scenario PSF, we set the collision distance to 2 and the collision speed to 4. The collision angle on the x-axis was fixed at 0, and the collision angle on the y-axis ranged from 0 to 1 with a step of 0.02. 
+Each scenario will be run 50 times under the specification above.
+The final results have been manually confirmed and presented in Figure~\ref{fig:oracle_threshold}.</p>
+
+<p>The final precision, recall, and the number of true positives are shown in Figure~\ref{fig:oracle_threshold}.
+For scenario FLB, involving a bicycle as the NPC, the precision remains relatively consistent for thresholds ranging from 0 to 0.15. However, the recall decreases as the threshold increases, with a significant drop beyond 0.15. The optimal threshold value for FLB is still 0. 
+Similarly, for scenario LC with a vehicle as the NPC, the precision is high at thresholds of 0 and 0.2. However,  there is only 1 TP when the threshold is 0.2, the number of true positives exhibits a decreasing trend, and an IoU threshold of 0 yields the best results. In scenario PSF with a pedestrian as the NPC, raising the threshold above 0.05 did not result in additional ICSs. Therefore, setting the threshold at 0 is still the most reasonable choice for our ICS discovery method.</p>
+
+<p>\begin{tcolorbox}
+\textbf{Answer to RQ4:} Despite the potential false positives in the threshold set for our oracle, \sysname remains highly effective in detecting ICSs according to our empirical evidence.
+Additionally, the false positive results may include IC-prone scenarios that hold practical significance, introducing new threats for ADS in real-world scenarios.
+\end{tcolorbox}</p>
+
+<h2 id="drivefuzz-comparison">DriveFuzz Comparison</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>Mutation Mode</strong></th>
+      <th><strong>All</strong></th>
+      <th><strong>Congestion</strong></th>
+      <th><strong>Entropy</strong></th>
+      <th><strong>Instability</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Running times</strong></td>
+      <td>779</td>
+      <td>884</td>
+      <td>1976</td>
+      <td>893</td>
+    </tr>
+    <tr>
+      <td><strong>Detected ICS</strong></td>
+      <td>12</td>
+      <td>10</td>
+      <td>22</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>We also ran DriveFuzz in different modes they offer for 36 hours separately, 
+the results are presented in Table~\ref{tab:eval:drivefuzz-IC}. 
+DriveFuzz can merely detect a few ICSs within the limited runtime regardless of the mode used.
+DriveFuzz tends to spend more time exploring the non-collision space than exploring further possibilities from the collision space.
+It also stops immediately after finding an ICS and then initiates a new round of testing using a new seed scenario.</p>
+
+<p>As a result, DriveFuzz not only misses the opportunity to explore the IC scenario space but also spends more time restarting from a new position in the non-collision scenario space, which is unrelated to the previous round.
+Also, the ICSs identified by DriveFuzz, after investing a significant amount of time, exhibit a notable repetition, 
+which further highlights the inefficiency of its search strategy.
+Comparatively, our incremental search strategy that commences from the collision scenario space has exhibited a discernible superiority.</p>
+
+<h2 id="baseline-comparison">Baseline Comparison</h2>
+
+<p><img src="images/baseline_comparison/Drivefuzz-box-log.png" alt="image" />
+<img src="images/baseline_comparison/ratio_radar.png" alt="image" /></p>
 
 <h2 id="build-the-theme">Build the Theme</h2>
 
